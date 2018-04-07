@@ -44,16 +44,21 @@ def init_annex(
     return repo.GitAnnexRepo(path)
 
 
-# Check git-annex version dependency
-version_str = process.GitAnnexVersionRunner(None)(raw=True).stdout
-logger.debug('git-annex version: {}'.format(version_str))
-git_annex_version = float(version_str.split('-g', 1)[0])
+def check_git_annex_version():
+    'Check git-annex version dependency'
+    version_str = process.GitAnnexVersionRunner(None)(raw=True).stdout
+    logger.debug('git-annex version: {}'.format(version_str))
 
-if git_annex_version < 6.20170101:
-    fmt = "git-annex version {} must be at least {}"
-    msg = fmt.format(git_annex_version, 6.20170101)
-    raise ImportError(msg)
+    other_separators = ['-','+']
+    for sep in other_separators:
+        version_str = version_str.replace(sep, ' ')
 
-# Delete unnecessary variables
-del version_str
+    git_annex_version = float(version_str.split()[0])
+
+    if git_annex_version < 6.20170101:
+        fmt = "git-annex version {} must be at least {}"
+        msg = fmt.format(git_annex_version, 6.20170101)
+        raise ImportError(msg)
+
+check_git_annex_version()
 
