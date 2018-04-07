@@ -56,3 +56,15 @@ COPY . /usr/src/app
 #
 ################################################################################
 
+################################################################################
+# git-annex-adapter-dev
+#
+RUN pip install --no-cache-dir -r requirements-test.txt
+# It may be useful to mount the application directory as a volume.
+# --volume "$(pwd):/usr/src/app/:ro"
+VOLUME ["/usr/src/app/"]r
+ENTRYPOINT ["/usr/local/bin/python3"]
+CMD ["-m", "unittest"]
+#
+################################################################################
+
