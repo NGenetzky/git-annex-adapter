@@ -1,0 +1,12 @@
+version: '2.1'
+networks: {}
+volumes:
+  main-data: {}
+services:
+  main:
+    build:
+      context: .
+    # privileged: true
+    # restart: always
+    volumes:
+      - 'main-data:/data'
