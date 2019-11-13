@@ -4,7 +4,7 @@ FROM python:3
 # docker-pygit2
 # github.com/mikechernev/docker-pygit2/
 #
-ENV LIBGIT_VERSION 0.27.0
+ENV LIBGIT_VERSION 0.28.0
 
 # Cmake is a dependency for building libgit2
 RUN apt-get update && apt-get install -y cmake \
