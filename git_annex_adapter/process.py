@@ -591,9 +591,11 @@ class GitAnnexRunner(ProcessRunner):
 
     def __call__(self, *args_suffix):
         try:
+            logger.debug("call({})".format(str(*args_suffix)))
             return super().__call__(*args_suffix)
 
         except FileNotFoundError as err:
+            logger.debug("except({})".format(str(*args_suffix)))
             if "No such file or directory:" in err.strerror:
                 fmt = "Path '{}' does not exist."
                 msg = fmt.format(self.workdir)
